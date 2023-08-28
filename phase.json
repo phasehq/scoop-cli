@@ -5,7 +5,7 @@
   "license": "GPLv3",
   "url": "https://phase-pkg.s3.eu-central-1.amazonaws.com/windows/phase_cli_windows_amd64_1.5.2.exe",
   "hash": "sha256:262ce1f6c3ea0fb293a2fce6545efaa33593ef891ef5b05fbce0b1d8d10f8635",
-  "bin": ["phase_cli_windows_amd64_1.5.2.exe", "phase"],
+  "bin": ["phase.exe"],
   "shortcuts": [["phase_cli_windows_amd64_1.5.2.exe", "Phase"]],
   "checkver": {
     "github": "https://github.com/phasehq/cli",
