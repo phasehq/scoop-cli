@@ -17,6 +17,6 @@
     "regex": "tag/v([\\w.-]+)"
   },
   "autoupdate": {
-    "url": "https://github.com/phasehq/cli/releases/download/v$version/phase_cli_windows_amd64_$version.exe",
+    "url": "https://github.com/phasehq/cli/releases/download/v$version/phase_cli_windows_amd64_$version.exe"
   }
 }
