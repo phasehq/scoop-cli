@@ -1,13 +1,13 @@
 {
-  "version": "1.6.3",
+  "version": "1.7.3",
   "description": "Securely manage your secrets and environment variables with Phase.",
   "homepage": "https://github.com/phasehq/cli",
   "license": "GPLv3",
-  "url": "https://github.com/phasehq/cli/releases/download/v1.6.3/phase_cli_windows_amd64_1.6.3.exe",
-  "hash": "sha256:225793fa611e1eca02e55a438f40daf27a193cd94cd207f434a69a129df3a90d",
+  "url": "https://github.com/phasehq/cli/releases/download/v1.7.3/phase_cli_windows_amd64_1.7.3.exe",
+  "hash": "sha256:4a8252283249c4c276eda3adb003cd356661ed3edc250d5f31eede4832d6fca5",
   "installer": {
     "script": [
-      "Rename-Item \"$dir\\phase_cli_windows_amd64_1.6.3.exe\" 'phase.exe'"
+      "Rename-Item \"$dir\\phase_cli_windows_amd64_1.7.3.exe\" 'phase.exe'"
     ]
   },
   "bin": "phase.exe",
