@@ -21,9 +21,12 @@ jobs:
         run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
         shell: pwsh
 
-      - name: Add Custom Scoop Bucket
+      - name: Install Scoop and Configure
         run: |
-          scoop bucket add my-bucket ${{ github.workspace }}
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+          $env:Path += ";$env:USERPROFILE\scoop\shims"
+          scoop bucket add my-bucket D:\a\scoop-cli\scoop-cli
+        shell: pwsh
 
       - name: Install Software from Manifest
         run: |
