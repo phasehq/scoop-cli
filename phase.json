@@ -6,7 +6,9 @@
   "url": "https://github.com/phasehq/cli/releases/download/v1.10.0/phase_cli_windows_amd64_1.10.0.zip",
   "hash": "30b2d283ade1ff5681e942010cd412ad40c8fda8e40b5a2745c2eeafa123e72b",
   "bin": "Windows-binary/phase/phase.exe",
-  "shortcuts": [["Windows-binary/phase/phase.exe", "Phase"]],
+  "shortcuts": [
+    ["Windows-binary/phase/phase.exe", "Phase"]
+  ],
   "checkver": {
     "github": "phasehq/cli",
     "regex": "tag/v([\\d.]+)"
