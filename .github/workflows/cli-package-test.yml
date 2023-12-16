@@ -9,37 +9,37 @@ on:
       - "phase.json"
 
 jobs:
-  validate-scoop-manifest:
+  manifest-validation:
+    name: Validate Scoop Manifest
     runs-on: windows-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Install Scoop
+      - name: Install Scoop Package Manager
         run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
         shell: pwsh
 
-      - name: Add Your Scoop Bucket
+      - name: Add Custom Scoop Bucket
         run: |
           scoop bucket add my-bucket ${{ github.workspace }}
 
-      - name: Install CLI from Scoop manifest
+      - name: Install Software from Manifest
         run: |
           scoop install phase.json
 
-      - name: Extract Expected Version
-        id: extract-version
+      - name: Determine Manifest Version
+        id: manifest-version
         run: |
-          $manifest = Get-Content phase.json | ConvertFrom-Json
-          $version = $manifest.version
-          echo "::set-output name=version::$version"
+          $content = Get-Content phase.json | ConvertFrom-Json
+          echo "::set-output name=version::${content.version}"
 
-      - name: Test CLI Version
+      - name: Verify CLI Version
         run: |
-          $expectedVersion = "${{ steps.extract-version.outputs.version }}"
-          $installedVersion = & phase --version
-          if ($installedVersion -ne $expectedVersion) {
-            throw "Version mismatch: expected $expectedVersion, got $installedVersion"
+          $expected = "${{ steps.manifest-version.outputs.version }}"
+          $actual = & phase --version
+          if ($actual -ne $expected) {
+            throw "Mismatch: Expected $expected, but found $actual"
           }
         shell: pwsh
