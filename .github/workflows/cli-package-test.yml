@@ -16,11 +16,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Scoop in Non-Admin Mode
-        run: |
-          $env:SCOOP='D:\Scoop'
-          $env:SCOOP_GLOBAL='D:\ScoopGlobal'
-          iwr -useb get.scoop.sh | iex
+      - name: Install Scoop
+        run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
         shell: pwsh
 
       - name: Add Your Scoop Bucket
