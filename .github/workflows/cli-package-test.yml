@@ -1,0 +1,46 @@
+name: Scoop Manifest Validation
+
+on:
+  push:
+    paths:
+      - "path-to-your-manifest.json"
+  pull_request:
+    paths:
+      - "path-to-your-manifest.json"
+
+jobs:
+  validate-scoop-manifest:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Scoop
+        run: |
+          Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+          iwr -useb get.scoop.sh | iex
+
+      - name: Add Your Scoop Bucket
+        run: |
+          scoop bucket add my-bucket ${{ github.workspace }}
+
+      - name: Install CLI from Scoop manifest
+        run: |
+          scoop install path-to-your-manifest.json
+
+      - name: Extract Expected Version
+        id: extract-version
+        run: |
+          $manifest = Get-Content path-to-your-manifest.json | ConvertFrom-Json
+          $version = $manifest.version
+          echo "::set-output name=version::$version"
+
+      - name: Test CLI Version
+        run: |
+          $expectedVersion = "${{ steps.extract-version.outputs.version }}"
+          $installedVersion = & phase --version
+          if ($installedVersion -ne $expectedVersion) {
+            throw "Version mismatch: expected $expectedVersion, got $installedVersion"
+          }
+        shell: pwsh
