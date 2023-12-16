@@ -3,10 +3,10 @@ name: Scoop Manifest Validation
 on:
   push:
     paths:
-      - "path-to-your-manifest.json"
+      - "phase.json"
   pull_request:
     paths:
-      - "path-to-your-manifest.json"
+      - "phase.json"
 
 jobs:
   validate-scoop-manifest:
@@ -27,12 +27,12 @@ jobs:
 
       - name: Install CLI from Scoop manifest
         run: |
-          scoop install path-to-your-manifest.json
+          scoop install phase.json
 
       - name: Extract Expected Version
         id: extract-version
         run: |
-          $manifest = Get-Content path-to-your-manifest.json | ConvertFrom-Json
+          $manifest = Get-Content phase.json | ConvertFrom-Json
           $version = $manifest.version
           echo "::set-output name=version::$version"
 
