@@ -25,11 +25,8 @@ jobs:
         run: |
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           $env:Path += ";$env:USERPROFILE\scoop\shims"
-        shell: pwsh
-
-      - name: Install Software from Manifest
-        run: |
           scoop install phase.json
+        shell: pwsh
 
       - name: Determine Manifest Version
         id: manifest-version
