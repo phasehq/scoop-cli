@@ -25,7 +25,7 @@ jobs:
         run: |
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           $env:Path += ";$env:USERPROFILE\scoop\shims"
-          scoop bucket add my-bucket .
+          scoop bucket add phasehq file://$PWD
         shell: pwsh
 
       - name: Install Software from Manifest
