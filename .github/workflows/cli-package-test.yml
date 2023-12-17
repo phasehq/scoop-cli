@@ -25,19 +25,18 @@ jobs:
         run: |
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           $env:Path += ";$env:USERPROFILE\scoop\shims"
-          scoop install phase.json
+          scoop install ./phase.json
         shell: pwsh
 
       - name: Determine Manifest Version
-        id: manifest-version
         run: |
           $content = Get-Content phase.json | ConvertFrom-Json
-          echo "::set-output name=version::${content.version}"
+          echo "VERSION=${content.version}" >> $GITHUB_ENV
 
       - name: Verify CLI Version
         run: |
           $env:Path += ";$env:USERPROFILE\scoop\shims"
-          $expected = "${{ steps.manifest-version.outputs.version }}"
+          $expected = $env:VERSION
           $actual = & phase --version
           if ($actual -ne $expected) {
             throw "Mismatch: Expected $expected, but found $actual"
