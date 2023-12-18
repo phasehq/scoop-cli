@@ -27,9 +27,7 @@ jobs:
           $env:Path += ";$env:USERPROFILE\scoop\shims"
           scoop install ./phase.json
           $content = Get-Content phase.json | ConvertFrom-Json
-          echo "VERSION=${content.version}" >> $GITHUB_ENV
-          $env:Path += ";$env:USERPROFILE\scoop\shims"
-          $expected = $env:VERSION
+          $expected = $content.version
           $actual = & phase --version
           if ($actual -ne $expected) {
             throw "Mismatch: Expected $expected, but found $actual"
