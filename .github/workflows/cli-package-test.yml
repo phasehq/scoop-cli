@@ -21,20 +21,13 @@ jobs:
         run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
         shell: pwsh
 
-      - name: Install Scoop and Configure
+      - name: Install Scoop and verify phase-cli version
         run: |
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           $env:Path += ";$env:USERPROFILE\scoop\shims"
           scoop install ./phase.json
-        shell: pwsh
-
-      - name: Determine Manifest Version
-        run: |
           $content = Get-Content phase.json | ConvertFrom-Json
           echo "VERSION=${content.version}" >> $GITHUB_ENV
-
-      - name: Verify CLI Version
-        run: |
           $env:Path += ";$env:USERPROFILE\scoop\shims"
           $expected = $env:VERSION
           $actual = & phase --version
