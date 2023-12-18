@@ -1,0 +1,35 @@
+name: Scoop Manifest Validation
+
+on:
+  push:
+    paths:
+      - "phase.json"
+  pull_request:
+    paths:
+      - "phase.json"
+
+jobs:
+  manifest-validation:
+    name: Validate Scoop Manifest
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Scoop Package Manager
+        run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+        shell: pwsh
+
+      - name: Install Scoop and verify phase-cli version
+        run: |
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+          $env:Path += ";$env:USERPROFILE\scoop\shims"
+          scoop install ./phase.json
+          $content = Get-Content phase.json | ConvertFrom-Json
+          $expected = $content.version
+          $actual = & phase --version
+          if ($actual -ne $expected) {
+            throw "Mismatch: Expected $expected, but found $actual"
+          }
+        shell: pwsh
