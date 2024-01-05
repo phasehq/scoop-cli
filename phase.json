@@ -1,10 +1,10 @@
 {
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "Securely manage your secrets and environment variables with Phase.",
   "homepage": "https://github.com/phasehq/cli",
   "license": "GPLv3",
-  "url": "https://github.com/phasehq/cli/releases/download/v1.11.0/phase_cli_windows_amd64_1.11.0.zip",
-  "hash": "985b4b5e28d40ce555d7fc30439c519053068fc35bb5642b7e85df056ab2a933",
+  "url": "https://github.com/phasehq/cli/releases/download/v1.11.1/phase_cli_windows_amd64_1.11.1.zip",
+  "hash": "13f6c55d0aa99fe19ccff21714ff36bb253ffb66493003e6f05390ae8cedbd5e",
   "bin": "Windows-binary/phase/phase.exe",
   "shortcuts": [
     ["Windows-binary/phase/phase.exe", "Phase"]
