@@ -10,6 +10,7 @@ on:
 
 jobs:
   manifest-validation:
+    name: Validate Scoop Manifest
     runs-on: windows-latest
 
     steps:
@@ -20,26 +21,14 @@ jobs:
         run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
         shell: pwsh
 
-      - name: Update PATH and Install Scoop App
+      - name: Install Scoop and verify phase-cli version
         run: |
-          ls
-          ls -l
+          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           $env:Path += ";$env:USERPROFILE\scoop\shims"
-          Write-Output "Updated PATH: $env:Path"
           scoop install ./phase.json
-          Write-Output "Installed applications:"
-          scoop list
-          Write-Output "Looking for 'phase' command:"
-          Get-Command phase
-        shell: pwsh
-
-      - name: Verify phase-cli Version
-        run: |
           $content = Get-Content phase.json | ConvertFrom-Json
           $expected = $content.version
-          $actual = phase --version
-          Write-Output "Expected version: $expected"
-          Write-Output "Actual version: $actual"
+          $actual = & phase --version
           if ($actual -ne $expected) {
             throw "Mismatch: Expected $expected, but found $actual"
           }
