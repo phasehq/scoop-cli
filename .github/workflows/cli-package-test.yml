@@ -1,3 +1,13 @@
+name: Scoop Manifest Validation
+
+on:
+  push:
+    paths:
+      - "phase.json"
+  pull_request:
+    paths:
+      - "phase.json"
+
 jobs:
   manifest-validation:
     runs-on: windows-latest
