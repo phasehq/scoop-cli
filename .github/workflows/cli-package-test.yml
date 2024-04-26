@@ -22,6 +22,8 @@ jobs:
 
       - name: Update PATH and Install Scoop App
         run: |
+          ls
+          ls -l
           $env:Path += ";$env:USERPROFILE\scoop\shims"
           Write-Output "Updated PATH: $env:Path"
           scoop install ./phase.json
