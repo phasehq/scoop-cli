@@ -23,7 +23,6 @@ jobs:
 
       - name: Install Scoop and verify phase-cli version
         run: |
-          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           $env:Path += ";$env:USERPROFILE\scoop\shims"
           scoop install ./phase.json
           $content = Get-Content phase.json | ConvertFrom-Json
