@@ -5,8 +5,6 @@ on:
     paths:
       - "phase.json"
   pull_request:
-    paths:
-      - "phase.json"
 
 jobs:
   manifest-validation:
@@ -15,21 +13,25 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Scoop Package Manager
-        run: iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+        run: |
+          Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+          irm get.scoop.sh | iex
         shell: pwsh
 
-      - name: Install Scoop and verify phase-cli version
+      - name: Add Scoop to PATH
+        run: echo "${env:USERPROFILE}\scoop\shims" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        shell: pwsh
+
+      - name: Install and verify phase-cli
         run: |
-          iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
-          $env:Path += ";$env:USERPROFILE\scoop\shims"
-          scoop install ./phase.json
-          $content = Get-Content phase.json | ConvertFrom-Json
+          scoop install ${{ github.workspace }}\phase.json
+          $content = Get-Content ${{ github.workspace }}\phase.json | ConvertFrom-Json
           $expected = $content.version
-          $actual = & phase --version
+          $actual = phase --version
           if ($actual -ne $expected) {
-            throw "Mismatch: Expected $expected, but found $actual"
+            throw "Version mismatch: Expected $expected, but found $actual"
           }
         shell: pwsh
