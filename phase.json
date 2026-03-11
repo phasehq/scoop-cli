@@ -1,19 +1,23 @@
 {
-  "version": "1.21.3",
+  "version": "2.0.0",
   "description": "Securely manage your secrets and environment variables with Phase.",
   "homepage": "https://github.com/phasehq/cli",
   "license": "GPLv3",
-  "url": "https://github.com/phasehq/cli/releases/download/v1.21.3/phase_cli_windows_amd64_1.21.3.zip",
-  "hash": "4f2acb80c11c8bf41d7812a8845768e697a9c3ea530629938f3e4eed026caba9",
-  "bin": "Windows-binary/phase/phase.exe",
+  "url": "https://github.com/phasehq/cli/releases/download/v2.0.0/phase_cli_2.0.0_windows_amd64.exe#/phase.exe",
+  "hash": "ab21bcf3c3412e0eefe7e9c156cb5a9b2b6cd46462584600f721a1250ae726ae",
+  "bin": "phase.exe",
   "shortcuts": [
-    ["Windows-binary/phase/phase.exe", "Phase"]
+    ["phase.exe", "Phase"]
   ],
   "checkver": {
     "github": "phasehq/cli",
     "regex": "tag/v([\\d.]+)"
   },
   "autoupdate": {
-    "url": "https://github.com/phasehq/cli/releases/download/v$version/phase_cli_windows_amd64_$version.zip"
+    "url": "https://github.com/phasehq/cli/releases/download/v$version/phase_cli_$version_windows_amd64.exe#/phase.exe",
+    "hash": {
+      "url": "https://github.com/phasehq/cli/releases/download/v$version/checksums.txt",
+      "regex": "([a-fA-F0-9]{64})\\s+phase_cli_$version_windows_amd64\\.exe"
+    }
   }
 }
